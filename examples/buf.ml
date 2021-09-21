@@ -32,7 +32,7 @@ struct
                                                  then Gen.return 0
                                                  else Gen.int_bound (len - 1));
                  ])
-  
+
   let init_state  = []
 
   let rev_explode s =
@@ -41,7 +41,7 @@ struct
     !chars
 
   let explode s = List.rev (rev_explode s)
-  
+
   let next_state c s = match c with
     | Contents -> s
     | Nth _ -> s
@@ -54,10 +54,10 @@ struct
       let rec trunc buf n = match buf,n with
         | [],0 -> []
         | [],_ -> raise (Invalid_argument "truncate")
-        | c::cs,0 -> []
+        | _c::_cs,0 -> []
         | c::cs,_ -> c::trunc cs (n-1) in
       List.rev (trunc (List.rev s) i)
-  
+
   let init_sut () = Buffer.create 16
   let cleanup b   = Buffer.reset b
   let run_cmd c s b = match c with
@@ -76,7 +76,7 @@ struct
     | Truncate i ->
       try (Buffer.truncate b i; true)
       with Invalid_argument _ -> (i < 0 || i > List.length s)
-      
+
   let precond c s = match c with
     | Truncate i -> i >= 0 && i <= List.length s
     | _ -> true

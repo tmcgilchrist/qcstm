@@ -1,0 +1,45 @@
+;; Negative tests with counterexamples
+(executables
+ (libraries qcheck qcstm ppx_deriving ctypes)
+ (package qcstm)
+ (public_names hanoi waterjug)
+ (names hanoi waterjug)
+ (modules hanoi waterjug)
+ (preprocess (pps ppx_deriving.show)))
+
+;; Positive tests
+(tests
+ (libraries qcheck qcstm ppx_deriving ctypes)
+ (package qcstm)
+ (names q counter stk hashtable buf)
+ (modules q counter stk hashtable buf)
+ (preprocess (pps ppx_deriving.show)))
+
+;; Native C test
+(executable
+ (libraries qcheck qcstm ppx_deriving ctypes ctypes.foreign)
+ (package qcstm)
+ (public_name stdio)
+ (name stdio)
+ (modules stdio)
+ (foreign_stubs
+  (language c)
+  (names stdiostub))
+ (preprocess (pps ppx_deriving.show)))
+
+;; Native C test
+(executable
+ (libraries qcheck qcstm ppx_deriving ctypes ctypes.foreign)
+ (package qcstm)
+ (public_name putget)
+ (name putget)
+ (modules putget)
+ (foreign_stubs
+  (language c)
+  (names putgetstub))
+ (preprocess (pps ppx_deriving.show)))
+
+;; Run Native C test
+(rule
+ (alias  runtest)
+ (action (run ./stdio.exe)))
