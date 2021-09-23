@@ -58,10 +58,10 @@ module Make(Spec : StmSpec) (*: StmTest *)
   : sig
     val cmds_ok : Spec.state -> Spec.cmd list -> bool
     val arb_cmds : Spec.state -> Spec.cmd list arbitrary
-    val consistency_test : ?count:int -> name:string -> Test.t
+    val consistency_test : ?count:int -> name:string -> unit -> Test.t
     val interp_agree : Spec.state -> Spec.sut -> Spec.cmd list -> bool
     val agree_prop : Spec.cmd list -> bool
-    val agree_test : ?count:int -> name:string -> Test.t
+    val agree_test : ?count:int -> name:string -> unit -> Test.t
   end
 =
 struct
@@ -96,7 +96,7 @@ struct
      | Some p -> set_print (Print.list p) ac)
   (* A generator of command sequences. Accepts the initial state as parameter. *)
 
-  let consistency_test ?(count=1000) ~name =
+  let consistency_test ?(count=1000) ~name () =
     Test.make ~name:name ~count:count (arb_cmds Spec.init_state) (cmds_ok Spec.init_state)
   (* A consistency test that generates a number of [cmd] sequences and
       checks that all contained [cmd]s satisfy the precondition [precond].
@@ -122,7 +122,7 @@ struct
       when interpreted from the model's initial state and the [sut]'s initial state.
       Cleans up after itself by calling [Spec.cleanup] *)
 
-  let agree_test ?(count=1000) ~name =
+  let agree_test ?(count=1000) ~name () =
     Test.make ~name:name ~count:count (arb_cmds Spec.init_state) agree_prop
   (* An actual agreement test (for convenience). Accepts an optional count parameter
       and a test name as a labeled parameter [name]. *)

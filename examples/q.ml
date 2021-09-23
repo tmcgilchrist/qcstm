@@ -63,4 +63,4 @@ end
 
 let _ =
   let module QT = QCSTM.Make(QConf) in
-  QCheck_runner.run_tests ~verbose:true [QT.agree_test ~count:10_000 ~name:"queue-model agreement"]
+  QCheck_runner.run_tests ~verbose:true [QT.agree_test ~count:10_000 ~name:"queue-model agreement" ()]

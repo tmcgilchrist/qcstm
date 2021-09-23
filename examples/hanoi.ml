@@ -63,4 +63,4 @@ end
 
 let _ =
   let module HT = QCSTM.Make(HanoiConf) in
-  QCheck_runner.run_tests ~verbose:true [HT.agree_test ~count:100 ~name:"towers of Hanoi"]
+  QCheck_runner.run_tests ~verbose:true [HT.agree_test ~count:100 ~name:"towers of Hanoi" ()]

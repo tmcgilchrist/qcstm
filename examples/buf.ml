@@ -82,8 +82,8 @@ struct
     | _ -> true
 end
 
-module BT = QCSTM.Make(BConf)
-;;
-QCheck_runner.run_tests ~verbose:true
-  [BT.consistency_test ~count:1000 ~name:"buffer-consistent";
-   BT.agree_test ~count:10_000 ~name:"buffer-model"]
+let _ =
+  let module BT = QCSTM.Make(BConf) in
+  QCheck_runner.run_tests ~verbose:true
+    [BT.consistency_test ~count:1000 ~name:"buffer-consistent" ();
+     BT.agree_test ~count:10_000 ~name:"buffer-model" ()]

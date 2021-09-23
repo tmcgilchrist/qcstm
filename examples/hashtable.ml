@@ -97,4 +97,4 @@ end
 let _ =
   let module HT = QCSTM.Make(HConf) in
   QCheck_runner.run_tests ~verbose:true
-    [HT.agree_test ~count:10_000 ~name:"Hashtbl-model agreement"]
+    [HT.agree_test ~count:10_000 ~name:"Hashtbl-model agreement" ()]

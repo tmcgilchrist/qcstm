@@ -43,4 +43,4 @@ end
 
 let _ =
   let module WJT = QCSTM.Make(WJConf) in
-  QCheck_runner.run_tests ~verbose:true [WJT.agree_test ~count:10_000 ~name:"waterjug-model"]
+  QCheck_runner.run_tests ~verbose:true [WJT.agree_test ~count:10_000 ~name:"waterjug-model" ()]

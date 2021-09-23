@@ -40,4 +40,4 @@ end
 let _ =
   let module PGtest = QCSTM.Make(PGConf) in
   QCheck_runner.run_tests ~verbose:true
-    [PGtest.agree_test ~count:10_000 ~name:"put/get-model agreement"]
+    [PGtest.agree_test ~count:10_000 ~name:"put/get-model agreement" ()]

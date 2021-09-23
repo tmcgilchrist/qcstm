@@ -148,7 +148,7 @@ struct
     | Fwrite _ -> s.status<>Closed && s.status<>Reading
     | Fclose   -> s.status<>Closed
 end
-module StdioT = QCSTM.Make(StdioConf)
-;;
-QCheck_runner.run_tests ~verbose:true
-  [StdioT.agree_test ~count:200 ~name:"stdio-model agreement"]
+let _ =
+  let module StdioT = QCSTM.Make(StdioConf) in
+  QCheck_runner.run_tests ~verbose:true
+    [StdioT.agree_test ~count:200 ~name:"stdio-model agreement" ()]
